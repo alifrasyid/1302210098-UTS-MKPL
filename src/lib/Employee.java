@@ -25,12 +25,12 @@ public class Employee extends EmployeeData{
 	private List<String> childNames;
 	private List<String> childIdNumbers;
 	
-	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, LocalDate dateJoined, boolean isForeigner, Gender gender) {
-		this.setEmployeeId(employeeId);;
-		this.setFirstName(firstName);;
-		this.setLastName(lastName);;
-		this.setIdNumber(idNumber);;
-		this.setAddress(address);;
+	public Employee(EmployeeData employeeData, LocalDate dateJoined, boolean isForeigner, Gender gender) {
+		this.setEmployeeId(employeeData.getEmployeeId());;
+		this.setFirstName(employeeData.getFirstName());;
+		this.setLastName(employeeData.getLastName());;
+		this.setIdNumber(employeeData.getIdNumber());;
+		this.setAddress(employeeData.getAddress());;
 		this.dateJoined = dateJoined;
 		this.isForeigner = isForeigner;
 		this.gender = gender;
@@ -93,6 +93,6 @@ public class Employee extends EmployeeData{
 		}
 		
 		boolean hasSpouseId = getIdNumber() != null && !getIdNumber().isEmpty();
-		return TaxFunction.calculateTax(salaryInfo.getMonthlySalary(), salaryInfo.getOtherMonthlyIncome(), monthWorkingInYear, salaryInfo.getAnnualDeductible(), hasSpouseId, childIdNumbers.size());
+		return TaxFunction.calculateTax(salaryInfo, monthWorkingInYear, hasSpouseId, childIdNumbers.size());
 	}
 }
