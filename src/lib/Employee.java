@@ -11,6 +11,12 @@ public class Employee extends EmployeeData{
 		Male,
 		Female,
 	}
+
+	private enum Grade {
+        GRADE_ONE,
+        GRADE_TWO,
+        GRADE_THREE
+    }
 	
 	private LocalDate dateJoined;
 	private int monthWorkingInYear;
@@ -51,22 +57,27 @@ public class Employee extends EmployeeData{
 	 * Fungsi untuk menentukan gaji bulanan pegawai berdasarkan grade kepegawaiannya (grade 1: 3.000.000 per bulan, grade 2: 5.000.000 per bulan, grade 3: 7.000.000 per bulan)
 	 * Jika pegawai adalah warga negara asing gaji bulanan diperbesar sebanyak 50%
 	 */
+
+	private final int SalaryGrade__one = 3000000;
+	private final int SalaryGrade__Two = 5000000;
+	private final int SalaryGrade__Three = 7000000;
+	private final double SalaryForeigner = 0.5;
 	
-	public void setMonthlySalary(int grade) {	
-		if (grade == 1) {
-			salaryInfo.setMonthlySalary(3000000);
+	public void setMonthlySalary(Grade grade) {	
+		if (grade == Grade.GRADE_ONE) {
+			salaryInfo.setMonthlySalary(SalaryGrade__one);
 			if (isForeigner) {
-				salaryInfo.setMonthlySalary((int) (3000000 * 1.5));
+				salaryInfo.setMonthlySalary((int) (SalaryGrade__one * SalaryForeigner));
 			}
-		}else if (grade == 2) {
-			salaryInfo.setMonthlySalary(5000000);
+		}else if (grade == Grade.GRADE_TWO) {
+			salaryInfo.setMonthlySalary(SalaryGrade__Two);
 			if (isForeigner) {
-				salaryInfo.setMonthlySalary((int) (3000000 * 1.5));
+				salaryInfo.setMonthlySalary((int) (SalaryGrade__Two * SalaryForeigner));
 			}
-		}else if (grade == 3) {
-			salaryInfo.setMonthlySalary(7000000);
+		}else if (grade == Grade.GRADE_THREE) {
+			salaryInfo.setMonthlySalary(SalaryGrade__Three);
 			if (isForeigner) {
-				salaryInfo.setMonthlySalary((int) (3000000 * 1.5));
+				salaryInfo.setMonthlySalary((int) (SalaryGrade__Three * SalaryForeigner));
 			}
 		}
 	}
@@ -83,13 +94,13 @@ public class Employee extends EmployeeData{
 	
 	public int getAnnualIncomeTax() {
 		
-		//Menghitung berapa lama pegawai bekerja dalam setahun ini, jika pegawai sudah bekerja dari tahun sebelumnya maka otomatis dianggap 12 bulan.
+		final int WorkPreYear = 12;
 		LocalDate date = LocalDate.now();
 		
 		if (date.getYear() == dateJoined.getYear()) {
 			monthWorkingInYear = date.getMonthValue() - dateJoined.getMonthValue();
 		}else {
-			monthWorkingInYear = 12;
+			monthWorkingInYear = WorkPreYear;
 		}
 		
 		boolean hasSpouseId = getIdNumber() != null && !getIdNumber().isEmpty();
