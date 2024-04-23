@@ -52,11 +52,6 @@ public class Employee extends EmployeeData{
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
-	
-	/**
-	 * Fungsi untuk menentukan gaji bulanan pegawai berdasarkan grade kepegawaiannya (grade 1: 3.000.000 per bulan, grade 2: 5.000.000 per bulan, grade 3: 7.000.000 per bulan)
-	 * Jika pegawai adalah warga negara asing gaji bulanan diperbesar sebanyak 50%
-	 */
 
 	private final int SalaryGrade__one = 3000000;
 	private final int SalaryGrade__Two = 5000000;
